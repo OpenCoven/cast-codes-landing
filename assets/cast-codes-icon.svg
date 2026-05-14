@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6E4BFF"/>
+      <stop offset="100%" stop-color="#A78BFF"/>
+    </linearGradient>
+    <linearGradient id="glowGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6E4BFF" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#A78BFF" stop-opacity="0.05"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="2" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="64" height="64" rx="16" fill="#050507"/>
+  <!-- Subtle inner glow -->
+  <rect width="64" height="64" rx="16" fill="url(#glowGrad)"/>
+  <!-- Border -->
+  <rect x="0.5" y="0.5" width="63" height="63" rx="15.5" fill="none" stroke="url(#grad)" stroke-opacity="0.35" stroke-width="1"/>
+
+  <!-- Terminal prompt: ❯ -->
+  <text
+    x="13"
+    y="43"
+    font-family="ui-monospace, SFMono-Regular, Menlo, monospace"
+    font-size="30"
+    font-weight="700"
+    fill="url(#grad)"
+    filter="url(#glow)"
+  >❯</text>
+
+  <!-- Cursor block -->
+  <rect x="38" y="25" width="10" height="15" rx="2" fill="url(#grad)" opacity="0.85"/>
+</svg>
