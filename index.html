@@ -4,19 +4,19 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>CastCodes — Your Terminal, Unshackled</title>
-  <meta name="description" content="CastCodes is an open-source terminal and code workspace. Everything you loved about a modern terminal — without cloud lock-in, telemetry, or hidden services." />
-  <meta name="theme-color" content="#000000" />
+  <title>CastCodes — Open Terminal & Code Workspace</title>
+  <meta name="description" content="CastCodes is an open-source terminal and code workspace forked from Warp, rebuilt for local-first ownership with cloud services and telemetry disabled." />
+  <meta name="theme-color" content="#050409" />
 
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://castcodes.dev/" />
-  <meta property="og:title" content="CastCodes — Your Terminal, Unshackled" />
-  <meta property="og:description" content="Open-source terminal & code workspace. Fast, local-first, no lock-in." />
-  <meta property="og:image" content="assets/og-image.png" />
+  <meta property="og:url" content="https://cast.codes/" />
+  <meta property="og:title" content="CastCodes — Open Terminal & Code Workspace" />
+  <meta property="og:description" content="A local-first, open-source terminal and code workspace from OpenCoven." />
+  <meta property="og:image" content="https://cast.codes/assets/cast-codes-icon.png" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="CastCodes — Your Terminal, Unshackled" />
-  <meta name="twitter:description" content="Open-source terminal & code workspace. Fast, local-first, no lock-in." />
-  <meta name="twitter:image" content="assets/og-image.png" />
+  <meta name="twitter:title" content="CastCodes — Open Terminal & Code Workspace" />
+  <meta name="twitter:description" content="A local-first, open-source terminal and code workspace from OpenCoven." />
+  <meta name="twitter:image" content="https://cast.codes/assets/cast-codes-icon.png" />
 
   <link rel="icon" type="image/svg+xml" href="assets/cast-codes-icon.svg" />
   <link rel="icon" type="image/png" href="assets/cast-codes-icon.png" />
@@ -29,20 +29,23 @@
     :root {
       color-scheme: dark;
       --bg:           var(--oc-black, #000);
-      --surface:      rgba(255,255,255,0.045);
-      --surface2:     rgba(255,255,255,0.075);
-      --border:       rgba(167,139,255,0.18);
+      --surface:      rgba(255,255,255,0.035);
+      --surface2:     rgba(255,255,255,0.065);
+      --border:       rgba(142,61,255,0.22);
       --border-soft:  rgba(255,255,255,0.08);
-      --text:         rgba(255,255,255,0.94);
-      --muted:        rgba(255,255,255,0.58);
-      --faint:        rgba(255,255,255,0.36);
+      --text:         var(--oc-text, rgba(255,255,255,0.94));
+      --muted:        var(--oc-text-muted, rgba(255,255,255,0.58));
+      --faint:        var(--oc-text-faint, rgba(255,255,255,0.36));
       --purple:       var(--oc-purple-2, #8a63ff);
       --purple-soft:  var(--oc-purple-3, #a78bff);
       --purple-deep:  var(--oc-purple-1, #6e4bff);
+      --orchid:       var(--oc-purple-accent, #D26BFF);
+      --panel:        var(--oc-surface-1, #111018);
+      --panel2:       var(--oc-surface-2, #191622);
       --grad:         var(--oc-gradient-signature, linear-gradient(135deg, #6e4bff, #a78bff));
       --shadow:       0 30px 90px rgba(0,0,0,0.55);
-      --radius:       14px;
-      --radius-lg:    22px;
+      --radius:       8px;
+      --radius-lg:    8px;
     }
 
     html { scroll-behavior: smooth; background: var(--bg); }
@@ -50,7 +53,8 @@
     body {
       margin: 0;
       background:
-        radial-gradient(ellipse 70% 45% at 50% -5%, rgba(110,75,255,0.18), transparent 55%),
+        radial-gradient(ellipse 70% 45% at 50% -5%, rgba(142,61,255,0.22), transparent 55%),
+        radial-gradient(ellipse 70% 40% at 85% 20%, rgba(210,107,255,0.08), transparent 62%),
         var(--bg);
       color: var(--text);
       font-family: var(--oc-font-ui, Inter, -apple-system, BlinkMacSystemFont, sans-serif);
@@ -83,7 +87,7 @@
       gap: 11px;
       font-weight: 700;
       font-size: 1rem;
-      letter-spacing: -0.02em;
+      letter-spacing: 0;
     }
     .nav-logo-mark {
       width: 36px; height: 36px;
@@ -178,7 +182,7 @@
       font-family: var(--oc-font-display, Satoshi, Inter, system-ui, sans-serif);
       font-size: clamp(2.8rem, 6.5vw, 5rem);
       font-weight: 820;
-      letter-spacing: -0.045em;
+      letter-spacing: 0;
       line-height: 1.04;
       margin-bottom: 1.5rem;
       color: var(--text);
@@ -288,6 +292,10 @@
       font-size: 11px;
       color: var(--faint);
       letter-spacing: 0.04em;
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
     .terminal-body {
       padding: 1.5rem 1.75rem 1.75rem;
@@ -295,6 +303,111 @@
       font-size: 13px;
       line-height: 1.9;
     }
+    .workspace-preview {
+      display: grid;
+      grid-template-columns: 150px minmax(0, 1fr) 190px;
+      gap: 1px;
+      padding: 0;
+      background: rgba(142,61,255,0.16);
+      line-height: 1.5;
+    }
+    .workspace-pane {
+      background: rgba(8,7,14,0.98);
+      min-height: 285px;
+      padding: 1rem;
+    }
+    .workspace-pane.main {
+      background: rgba(6,5,12,0.98);
+      min-width: 0;
+    }
+    .pane-kicker {
+      color: var(--faint);
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: 0.8rem;
+    }
+    .file-row,
+    .status-row,
+    .browser-row {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      min-width: 0;
+      color: var(--muted);
+      font-size: 11px;
+      padding: 0.28rem 0;
+    }
+    .file-row.active {
+      color: var(--text);
+    }
+    .file-dot,
+    .status-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: var(--purple);
+      box-shadow: 0 0 10px rgba(142,61,255,0.65);
+      flex: 0 0 auto;
+    }
+    .status-dot.green {
+      background: var(--oc-success, #30d158);
+      box-shadow: 0 0 10px rgba(48,209,88,0.42);
+    }
+    .workspace-command {
+      border: 1px solid rgba(142,61,255,0.18);
+      background: rgba(255,255,255,0.025);
+      border-radius: var(--radius);
+      padding: 0.85rem;
+      margin-bottom: 0.85rem;
+    }
+    .workspace-command .line {
+      display: block;
+      min-width: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .workspace-chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      margin-top: 0.9rem;
+    }
+    .mini-chip {
+      border: 1px solid rgba(142,61,255,0.18);
+      background: rgba(142,61,255,0.08);
+      color: var(--purple-soft);
+      border-radius: 999px;
+      padding: 0.22rem 0.5rem;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .browser-frame {
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--radius);
+      overflow: hidden;
+      background: rgba(255,255,255,0.025);
+    }
+    .browser-top {
+      color: var(--faint);
+      font-size: 10px;
+      padding: 0.45rem 0.55rem;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .browser-body {
+      padding: 0.65rem;
+    }
+    .browser-bar {
+      height: 7px;
+      border-radius: 999px;
+      background: rgba(232,224,240,0.16);
+      margin-bottom: 0.45rem;
+    }
+    .browser-bar.short { width: 58%; }
+    .browser-bar.violet { background: rgba(142,61,255,0.48); }
     .t-comment { color: rgba(255,255,255,0.2); }
     .t-prompt  { color: var(--purple-soft); }
     .t-cmd     { color: var(--text); }
@@ -335,7 +448,7 @@
       font-family: var(--oc-font-display, Satoshi, Inter, system-ui, sans-serif);
       font-size: clamp(1.9rem, 4vw, 3rem);
       font-weight: 800;
-      letter-spacing: -0.035em;
+      letter-spacing: 0;
       line-height: 1.1;
       margin-bottom: 1rem;
       color: var(--text);
@@ -354,14 +467,99 @@
       grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
       gap: 1.25rem;
     }
+    .proof-strip {
+      max-width: 1000px;
+      margin: 2.5rem auto 0;
+      padding: 0 1.5rem;
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 0.75rem;
+    }
+    .proof-chip {
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.026);
+      border-radius: var(--radius);
+      padding: 0.8rem 0.85rem;
+      min-height: 70px;
+    }
+    .proof-chip strong {
+      display: block;
+      color: var(--text);
+      font-size: 0.82rem;
+      margin-bottom: 0.2rem;
+    }
+    .proof-chip span {
+      color: var(--faint);
+      font-size: 0.72rem;
+    }
+    .bento-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 1rem;
+    }
+    .bento-card {
+      background: linear-gradient(180deg, rgba(255,255,255,0.045), rgba(255,255,255,0.018));
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.4rem;
+      min-height: 170px;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
+    }
+    .bento-card.large {
+      grid-column: span 2;
+      grid-row: span 2;
+      min-height: 360px;
+    }
+    .bento-card.wide {
+      grid-column: span 2;
+    }
+    .bento-card h3 {
+      font-size: 1rem;
+      letter-spacing: 0;
+      margin-bottom: 0.5rem;
+    }
+    .bento-card p {
+      color: var(--muted);
+      font-size: 0.86rem;
+      line-height: 1.65;
+    }
+    .bento-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      color: var(--purple-soft);
+      font-family: var(--oc-font-mono, ui-monospace, Menlo, monospace);
+      font-size: 0.68rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+    .bento-label::before {
+      content: '';
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: var(--purple);
+      box-shadow: 0 0 12px rgba(142,61,255,0.8);
+    }
+    .mini-terminal {
+      margin-top: 1.1rem;
+      border: 1px solid rgba(142,61,255,0.16);
+      border-radius: var(--radius);
+      background: rgba(5,4,9,0.78);
+      padding: 1rem;
+      font-family: var(--oc-font-mono, ui-monospace, Menlo, monospace);
+      font-size: 12px;
+      color: var(--muted);
+    }
     .feature-card {
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: var(--radius-lg);
       padding: 1.875rem;
       transition: border-color 0.25s, background 0.25s, transform 0.25s, box-shadow 0.25s;
-      opacity: 0;
-      translate: 0 18px;
+      opacity: 1;
+      translate: 0 0;
       transition: opacity 0.5s, translate 0.5s, border-color 0.25s, background 0.25s, transform 0.25s, box-shadow 0.25s;
     }
     .feature-card.visible { opacity: 1; translate: 0 0; }
@@ -386,7 +584,7 @@
       font-family: var(--oc-font-display, Satoshi, Inter, system-ui, sans-serif);
       font-size: 1.05rem;
       font-weight: 700;
-      letter-spacing: -0.015em;
+      letter-spacing: 0;
       margin-bottom: 0.5rem;
       color: var(--text);
     }
@@ -566,15 +764,32 @@
     @media (max-width: 768px) {
       .nav-links { display: none; }
       .features-grid { grid-template-columns: 1fr; }
+      .proof-strip { grid-template-columns: 1fr 1fr; }
+      .bento-grid { grid-template-columns: 1fr; }
+      .bento-card.large,
+      .bento-card.wide { grid-column: span 1; }
+      .workspace-preview { grid-template-columns: 1fr; }
+      .workspace-pane { min-height: auto; }
+      .workspace-pane.side { display: none; }
       .oss-inner { flex-direction: column; }
       footer { flex-direction: column; align-items: flex-start; }
       .pane-trigger span { display: none; }
       .pane-trigger { width: 28px; padding: 0; justify-content: center; }
+      .workspace-command .line {
+        white-space: normal;
+        overflow: visible;
+        text-overflow: clip;
+        overflow-wrap: anywhere;
+      }
     }
     @media (max-width: 480px) {
       h1 { font-size: clamp(2.2rem, 12vw, 3rem); }
       .hero-actions { flex-direction: column; width: 100%; }
       .hero-actions .btn { width: 100%; justify-content: center; }
+      .proof-strip { grid-template-columns: 1fr; }
+      .install-box { flex-direction: column; align-items: stretch; }
+      .install-box code { text-align: center; word-break: break-word; font-size: 0.78rem; }
+      .copy-btn { width: 100%; }
     }
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
@@ -611,11 +826,11 @@
     <span class="hero-badge-dot"></span>
     Open Source Terminal &amp; Code Workspace
   </div>
-  <h1>Everything Warp gave you.<br /><span class="grad-text">Nothing it took away.</span></h1>
-  <p class="hero-sub">CastCodes is a fully open-source terminal and code workspace. Fast, local-first — no cloud account, no telemetry, no lock-in.</p>
+  <h1>CastCodes<br /><span class="grad-text">belongs on your machine.</span></h1>
+  <p class="hero-sub">An open, local-first terminal and code workspace forked from Warp, rebuilt for ownership: cloud services disabled, telemetry removed, and the workspace surface kept inspectable.</p>
   <div class="hero-actions">
-    <a class="btn btn-primary" href="#install">Get CastCodes — it's free</a>
-    <a class="btn btn-ghost" href="https://github.com/OpenCoven/cast-codes" target="_blank">View on GitHub →</a>
+    <a class="btn btn-primary" href="#install">Download CastCodes</a>
+    <a class="btn btn-ghost" href="https://github.com/OpenCoven/cast-codes" target="_blank">View source →</a>
   </div>
 </section>
 
@@ -636,70 +851,121 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M15 4v16"/><path d="m10 9 3 3-3 3"/></svg>
       </button>
     </div>
-    <div class="terminal-body">
-      <div><span class="t-comment"># local-first. no account. no cloud.</span></div>
-      <div><span class="t-prompt">❯ </span><span class="t-cmd">cast-codes .</span></div>
-      <div><span class="t-out">Opening workspace in CastCodes...</span></div>
-      <div>&nbsp;</div>
-      <div><span class="t-prompt">❯ </span><span class="t-cmd">git log --oneline -3</span></div>
-      <div><span class="t-sha">a4f81e2</span><span class="t-out"> feat: local-first workspace — no cloud required</span></div>
-      <div><span class="t-sha">c9d32b1</span><span class="t-out"> chore: rebrand public surface to CastCodes</span></div>
-      <div><span class="t-sha">88f02da</span><span class="t-out"> feat: castcodes:// url scheme + open handler</span></div>
-      <div>&nbsp;</div>
-      <div><span class="t-prompt">❯ </span><span class="t-cursor"></span></div>
+    <div class="terminal-body workspace-preview">
+      <aside class="workspace-pane side">
+        <div class="pane-kicker">Project</div>
+        <div class="file-row active"><span class="file-dot"></span> README.md</div>
+        <div class="file-row"><span class="file-dot"></span> src/main.rs</div>
+        <div class="file-row"><span class="file-dot"></span> crates/warp</div>
+        <div class="file-row"><span class="file-dot"></span> assets</div>
+        <div style="height:1px;background:rgba(255,255,255,0.08);margin:0.9rem 0"></div>
+        <div class="pane-kicker">Runtime</div>
+        <div class="status-row"><span class="status-dot green"></span> Local app</div>
+        <div class="status-row"><span class="status-dot"></span> Cloud off</div>
+        <div class="status-row"><span class="status-dot"></span> Telemetry off</div>
+      </aside>
+      <main class="workspace-pane main">
+        <div class="workspace-command">
+          <div class="line"><span class="t-comment"># open the current repo without an account</span></div>
+          <div class="line"><span class="t-prompt">❯ </span><span class="t-cmd">cast-codes .</span></div>
+          <div class="line"><span class="t-out">Workspace opened locally through dev.castcodes.CastCodes</span></div>
+        </div>
+        <div class="workspace-command">
+          <div class="line"><span class="t-prompt">❯ </span><span class="t-cmd">git log --oneline -3</span></div>
+          <div class="line"><span class="t-sha">a4f81e2</span><span class="t-out"> feat: local-first workspace</span></div>
+          <div class="line"><span class="t-sha">c9d32b1</span><span class="t-out"> chore: remove upstream services</span></div>
+          <div class="line"><span class="t-sha">88f02da</span><span class="t-out"> feat: castcodes:// open handler</span></div>
+        </div>
+        <div class="workspace-chip-row">
+          <span class="mini-chip">AGPL + MIT</span>
+          <span class="mini-chip">cast-codes CLI</span>
+          <span class="mini-chip">castcodes://</span>
+          <span class="mini-chip">no upstream auth</span>
+        </div>
+      </main>
+      <aside class="workspace-pane side">
+        <div class="pane-kicker">Preview</div>
+        <div class="browser-frame">
+          <div class="browser-top">localhost:3000</div>
+          <div class="browser-body">
+            <div class="browser-bar violet" style="width:72%"></div>
+            <div class="browser-bar"></div>
+            <div class="browser-bar short"></div>
+            <div style="height:52px"></div>
+            <div class="browser-bar violet" style="width:48%"></div>
+          </div>
+        </div>
+        <div style="height:1px;background:rgba(255,255,255,0.08);margin:0.9rem 0"></div>
+        <div class="browser-row"><span class="status-dot green"></span> Browser pane attached</div>
+        <div class="browser-row"><span class="status-dot"></span> Files pane visible</div>
+      </aside>
     </div>
   </div>
+</div>
+
+<div class="proof-strip" aria-label="CastCodes proof points">
+  <div class="proof-chip"><strong>Forked from Warp</strong><span>Modern terminal foundation, OpenCoven-owned surface.</span></div>
+  <div class="proof-chip"><strong>Local first</strong><span>No account gate or upstream cloud dependency.</span></div>
+  <div class="proof-chip"><strong>Cloud disabled</strong><span>Hosted services and telemetry paths removed.</span></div>
+  <div class="proof-chip"><strong>castcodes://</strong><span>Deep links open directly into the app.</span></div>
+  <div class="proof-chip"><strong>AGPL + MIT</strong><span>Free software you can inspect, fork, and build.</span></div>
 </div>
 
 <!-- FEATURES -->
 <section class="section" id="features">
   <div class="section-label">Why CastCodes</div>
-  <h2>Built for your workflow,<br />not a subscription model.</h2>
-  <p class="section-sub">Everything you loved about a modern terminal — without hosted services, telemetry, or platform lock-in.</p>
-  <div class="features-grid">
-    <div class="feature-card">
-      <div class="feature-icon">🔒</div>
-      <h3>Local First</h3>
-      <p>No cloud accounts, no upstream auth. Everything runs on your machine. Your data never leaves your terminal.</p>
+  <h2>A workstation surface,<br />not a hosted terminal account.</h2>
+  <p class="section-sub">CastCodes keeps the modern command workspace, but shifts the relationship: local runtime, open code, explicit integrations, and no hidden service dependency.</p>
+  <div class="bento-grid">
+    <div class="bento-card large">
+      <div class="bento-label">Workspace Runtime</div>
+      <h3>Terminal, project context, and preview panes in one local app.</h3>
+      <p>Use the block-based terminal foundation with the parts that make it a code workspace: project files, command history, browser preview, URL routing, and app-level open handlers.</p>
+      <div class="mini-terminal">
+        <div><span class="t-prompt">❯ </span><span class="t-cmd">cast-codes .</span></div>
+        <div><span class="t-out">Opening local workspace...</span></div>
+        <div><span class="t-prompt">❯ </span><span class="t-cmd">open castcodes://workspace/current</span></div>
+        <div><span class="t-out">Routed through CastCodes URL handler</span></div>
+      </div>
     </div>
-    <div class="feature-card">
-      <div class="feature-icon">⚡</div>
-      <h3>Blazing Fast</h3>
-      <p>GPU-accelerated rendering on a battle-tested terminal core. Startup is instant; response is immediate.</p>
+    <div class="bento-card">
+      <div class="bento-label">Local First</div>
+      <h3>No account gate.</h3>
+      <p>Launch the app and work locally. CastCodes is built for developers who want the terminal surface without upstream auth in the critical path.</p>
     </div>
-    <div class="feature-card">
-      <div class="feature-icon">🌿</div>
-      <h3>Open Source</h3>
-      <p>Every line is auditable. Fork it, extend it, contribute back. No black-box telemetry, no hidden analytics.</p>
+    <div class="bento-card">
+      <div class="bento-label">Open Code</div>
+      <h3>Auditable by default.</h3>
+      <p>The app lives in the OpenCoven org under AGPL + MIT licensing, so the implementation can be inspected, rebuilt, and forked.</p>
     </div>
-    <div class="feature-card">
-      <div class="feature-icon">🎨</div>
-      <h3>Modern UI</h3>
-      <p>Blocks-based command history, inline completions, and a clean interface that gets out of your way.</p>
+    <div class="bento-card">
+      <div class="bento-label">Disabled Services</div>
+      <h3>Telemetry and hosted hooks removed.</h3>
+      <p>Upstream cloud, billing, and crash-reporting paths are intentionally disabled rather than hidden behind a settings toggle.</p>
     </div>
-    <div class="feature-card">
-      <div class="feature-icon">🔗</div>
-      <h3>Deep Integration</h3>
-      <p>Registers <code style="font-size:0.8rem;color:var(--purple-soft)">castcodes://</code> URL scheme and <code style="font-size:0.8rem;color:var(--purple-soft)">cast-codes</code> CLI for seamless workspace opens.</p>
+    <div class="bento-card">
+      <div class="bento-label">App Hooks</div>
+      <h3>CLI and deep links.</h3>
+      <p>Use <code style="font-size:0.8rem;color:var(--purple-soft)">cast-codes</code> and <code style="font-size:0.8rem;color:var(--purple-soft)">castcodes://</code> to open workspaces from scripts, docs, and other tools.</p>
     </div>
-    <div class="feature-card">
-      <div class="feature-icon">🛡️</div>
-      <h3>Zero Telemetry</h3>
-      <p>Upstream crash reporting, billing hooks, and hosted services are fully disabled — not just opt-out.</p>
+    <div class="bento-card wide">
+      <div class="bento-label">OpenCoven Surface</div>
+      <h3>Part of the local familiar ecosystem.</h3>
+      <p>CastCodes is the code workspace side of the OpenCoven toolchain: practical, inspectable software that keeps local ownership at the center.</p>
     </div>
   </div>
 </section>
 
 <!-- COMPARE -->
 <section class="section" id="compare" style="padding-top:0">
-  <div class="section-label">Comparison</div>
-  <h2>CastCodes vs Warp</h2>
-  <p class="section-sub">Same great terminal foundation. Very different relationship with your data.</p>
+  <div class="section-label">Ownership Model</div>
+  <h2>What changed from upstream.</h2>
+  <p class="section-sub">CastCodes keeps the familiar terminal foundation while changing the operating contract around accounts, telemetry, hosted services, and forkability.</p>
   <div class="compare-wrap">
     <table>
       <thead>
         <tr>
-          <th>Feature</th>
+          <th>Contract</th>
           <th class="cc">CastCodes</th>
           <th>Warp</th>
         </tr>
@@ -722,8 +988,8 @@
 <div class="oss-strip" id="open-source">
   <div class="oss-inner">
     <div>
-      <h2>Open source, <span class="grad-text">forever.</span></h2>
-      <p>CastCodes is free software. Always has been, always will be. Fork it, build on it, make it yours.</p>
+      <h2>Forked from Warp.<br /><span class="grad-text">Rebuilt for local ownership.</span></h2>
+      <p>The point is not nostalgia. It is a terminal and code workspace you can inspect, run locally, and keep in your own toolchain.</p>
     </div>
     <a class="btn btn-primary" href="https://github.com/OpenCoven/cast-codes" target="_blank" style="padding:0.85rem 2rem;font-size:0.925rem;">
       View Source on GitHub →
@@ -734,8 +1000,8 @@
 <!-- INSTALL -->
 <section class="install-section" id="install">
   <div class="section-label" style="text-align:center">Get Started</div>
-  <h2>Install in seconds.</h2>
-  <p class="section-sub" style="margin:0.75rem auto 0;text-align:center;max-width:400px">macOS · Linux · Open Source</p>
+  <h2>Download the current build.</h2>
+  <p class="section-sub" style="margin:0.75rem auto 0;text-align:center;max-width:430px">Start with the latest release, or build from source if you want to inspect the full path yourself.</p>
 
   <div style="margin:2rem 0 1.25rem;display:flex;justify-content:center">
     <a
@@ -751,16 +1017,24 @@
   <p class="install-note" style="margin-top:0.75rem">Unsigned build — on first launch, right-click the app → <strong>Open</strong> to bypass Gatekeeper.</p>
 
   <div class="install-tabs">
-    <button class="tab active" onclick="setTab(this,'brew')">Homebrew</button>
+    <button class="tab active" onclick="setTab(this,'release')">Latest release</button>
+    <button class="tab" onclick="setTab(this,'brew')">Homebrew</button>
     <button class="tab" onclick="setTab(this,'cargo')">Build from source</button>
   </div>
 
-  <div id="tab-brew">
+  <div id="tab-release">
     <div class="install-box" onclick="copyInstall(this)">
-      <code>brew install opencoven/tap/cast-codes</code>
+      <code>https://github.com/OpenCoven/cast-codes/releases/latest</code>
       <button class="copy-btn">Copy</button>
     </div>
-    <p class="install-note">Homebrew tap coming soon — <a href="https://github.com/OpenCoven/cast-codes/releases" target="_blank">see all releases →</a></p>
+    <p class="install-note">Use the latest GitHub release for the current packaged build.</p>
+  </div>
+  <div id="tab-brew" style="display:none">
+    <div class="install-box" aria-disabled="true">
+      <code>Homebrew tap is planned, not published yet.</code>
+      <button class="copy-btn" type="button" disabled>Soon</button>
+    </div>
+    <p class="install-note"><a href="https://github.com/OpenCoven/cast-codes/releases" target="_blank">See releases →</a></p>
   </div>
   <div id="tab-cargo" style="display:none">
     <div class="install-box" onclick="copyInstall(this)">
@@ -801,6 +1075,7 @@
 
   // copy install
   function copyInstall(box) {
+    if (box.getAttribute('aria-disabled') === 'true') return;
     const code = box.querySelector('code').textContent;
     const btn  = box.querySelector('.copy-btn');
     navigator.clipboard.writeText(code).then(() => {
@@ -813,8 +1088,9 @@
   function setTab(btn, id) {
     document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
     btn.classList.add('active');
-    document.getElementById('tab-brew').style.display  = id === 'brew'  ? '' : 'none';
-    document.getElementById('tab-cargo').style.display = id === 'cargo' ? '' : 'none';
+    document.getElementById('tab-release').style.display = id === 'release' ? '' : 'none';
+    document.getElementById('tab-brew').style.display    = id === 'brew'    ? '' : 'none';
+    document.getElementById('tab-cargo').style.display   = id === 'cargo'   ? '' : 'none';
   }
 </script>
 </body>
