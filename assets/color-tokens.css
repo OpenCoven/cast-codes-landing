@@ -42,6 +42,11 @@
   --oc-radius-md: 8px;
   --oc-radius-lg: 12px;
 
+  /* Coven named violet tokens — mirrors coven-docs globals.css exactly */
+  --coven-violet:       #9A8ECD;
+  --coven-violet-light: #B4AAEB;
+  --coven-violet-dark:  #7A6FB3;
+
   /* Light mode overrides */
   @media (prefers-color-scheme: light) {
     --oc-surface-0: #050409;

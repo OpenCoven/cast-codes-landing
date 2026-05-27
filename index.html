@@ -58,13 +58,35 @@
       margin: 0;
       background:
         radial-gradient(ellipse 70% 45% at 50% -5%, rgba(154,142,205,0.22), transparent 55%),
-        radial-gradient(ellipse 70% 40% at 85% 20%, rgba(210,107,255,0.08), transparent 62%),
+        radial-gradient(ellipse 70% 40% at 85% 20%, rgba(196,185,240,0.08), transparent 62%),
         var(--bg);
       color: var(--text);
       font-family: var(--oc-font-ui, Inter, -apple-system, BlinkMacSystemFont, sans-serif);
+      font-feature-settings: "rlig" 1, "calt" 1;
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
       overflow-x: hidden;
+    }
+
+    /* ── Glassmorphism cards (mirrors coven-docs callout style) ── */
+    .glass-card {
+      background: rgba(154, 142, 205, 0.06);
+      border: 1px solid rgba(154, 142, 205, 0.15);
+      border-radius: var(--oc-radius-md, 8px);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    /* ── Inline code (matches coven-docs dark code style) ── */
+    :not(pre) > code {
+      background: rgba(154, 142, 205, 0.1);
+      color: var(--coven-violet-light, #B4AAEB);
+      border: 1px solid rgba(154, 142, 205, 0.15);
+      border-radius: 4px;
+      padding: 0.15em 0.35em;
+      font-size: 0.875em;
+      font-family: var(--oc-font-mono, ui-monospace, Menlo, monospace);
     }
 
     a { color: inherit; text-decoration: none; }
