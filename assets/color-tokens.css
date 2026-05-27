@@ -1,4 +1,4 @@
-/* CastCodes landing site brand color tokens. OpenCoven black glass + true violet. */
+/* CastCodes landing site brand color tokens. Kept in sync with coven-docs globals.css. */
 :root {
   color-scheme: light dark;
 
@@ -6,19 +6,19 @@
   --oc-black: #050409;
   --oc-white: #ffffff;
 
-  /* Primary OpenCoven violet spectrum */
-  --oc-purple-primary: #8E3DFF;
-  --oc-purple-dark: #3B164F;
-  --oc-purple-light: #C9A7FF;
+  /* Primary OpenCoven violet spectrum — matches coven-docs --coven-violet */
+  --oc-purple-primary: #9A8ECD;
+  --oc-purple-dark: #7A6FB3;
+  --oc-purple-light: #B4AAEB;
   --oc-purple-very-light: #E8E0F0;
-  --oc-purple-accent: #D26BFF;
-  --oc-purple-accent-muted: #A855F7;
+  --oc-purple-accent: #C4B9F0;
+  --oc-purple-accent-muted: #9A8ECD;
 
   /* Legacy aliases for backward compatibility */
-  --oc-purple-1: #3B164F;
-  --oc-purple-2: #8E3DFF;
-  --oc-purple-3: #C9A7FF;
-  --oc-purple-glow: #D26BFF;
+  --oc-purple-1: #7A6FB3;
+  --oc-purple-2: #9A8ECD;
+  --oc-purple-3: #B4AAEB;
+  --oc-purple-glow: #C4B9F0;
 
   /* Controlled accents */
   --oc-accent-blue: #0A84FF;
@@ -32,10 +32,15 @@
   --oc-surface-3: #241A32;
   --oc-border-subtle: rgba(255, 255, 255, 0.08);
   --oc-border-strong: rgba(255, 255, 255, 0.14);
-  --oc-border-purple: rgba(142, 61, 255, 0.24);
+  --oc-border-purple: rgba(154, 142, 205, 0.24);
   --oc-text: #E8E0F0;
   --oc-text-muted: rgba(232, 224, 240, 0.68);
   --oc-text-faint: rgba(232, 224, 240, 0.42);
+
+  /* Radius scale — matches coven-docs */
+  --oc-radius-sm: 6px;
+  --oc-radius-md: 8px;
+  --oc-radius-lg: 12px;
 
   /* Light mode overrides */
   @media (prefers-color-scheme: light) {
@@ -45,7 +50,7 @@
     --oc-surface-3: #241A32;
     --oc-border-subtle: rgba(255, 255, 255, 0.08);
     --oc-border-strong: rgba(255, 255, 255, 0.14);
-    --oc-border-purple: rgba(142, 61, 255, 0.24);
+    --oc-border-purple: rgba(154, 142, 205, 0.24);
     --oc-text: #E8E0F0;
     --oc-text-muted: rgba(232, 224, 240, 0.68);
     --oc-text-faint: rgba(232, 224, 240, 0.42);
@@ -54,12 +59,12 @@
   /* Signature treatments: use sparingly */
   --oc-gradient-signature: linear-gradient(135deg, var(--oc-purple-primary), var(--oc-purple-accent));
   --oc-gradient-accent: linear-gradient(135deg, var(--oc-purple-accent-muted), var(--oc-purple-accent));
-  --oc-radial-glow: radial-gradient(circle, rgba(142, 61, 255, 0.28) 0%, rgba(142, 61, 255, 0) 68%);
-  --oc-radial-glow-bright: radial-gradient(circle, rgba(210, 107, 255, 0.2) 0%, rgba(210, 107, 255, 0) 60%);
-  --oc-focus-ring: 0 0 0 2px rgba(142, 61, 255, 0.52), 0 0 32px rgba(142, 61, 255, 0.28);
-  --oc-hover-glow: 0 0 36px rgba(142, 61, 255, 0.26);
+  --oc-radial-glow: radial-gradient(circle, rgba(154, 142, 205, 0.28) 0%, rgba(154, 142, 205, 0) 68%);
+  --oc-radial-glow-bright: radial-gradient(circle, rgba(196, 185, 240, 0.2) 0%, rgba(196, 185, 240, 0) 60%);
+  --oc-focus-ring: 0 0 0 2px rgba(154, 142, 205, 0.52), 0 0 32px rgba(154, 142, 205, 0.28);
+  --oc-hover-glow: 0 0 36px rgba(154, 142, 205, 0.26);
   --oc-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
   --oc-shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07);
   --oc-shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
-  --oc-shadow-purple: 0 4px 20px rgba(142, 61, 255, 0.18);
+  --oc-shadow-purple: 0 4px 20px rgba(154, 142, 205, 0.18);
 }
